@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!-- mybatis的全局配置文件 -->
+<configuration>
+    <!--
+    4.3.2. Mybatis SQL映射文件
+    在Mybatis中,推荐使用mappers作为包名,我们只需要写一个映射配置文件就可以,UserMapper.xml,用于
+    定义要执行的sql语句,同时可以设置参数|返回值结果类型
+    用于指明使用哪一个开发环境
+    default : 用于指定使用的环境的id属性值
+    -->
+    <properties resource="jdbc.properties">
+
+    </properties>
+    <typeAliases>
+        <package name="com.yjxxt.pojo"/>
+    </typeAliases>
+    <environments default="ev">
+        <!-- 用户配置开发环境 id: 环境的唯一标识 -->
+        <environment id="ev">
+            <!--
+            事务管理器
+            JBDC : 表示采用JDBC一样的事务管理方式
+            -->
+            <transactionManager type="JDBC"/>
+            <!--
+            用于配置数据库连接吃和数据库连接参数
+            POOLED : 表示mybatis采用连接池技术
+            -->
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <!-- SQL映射文件配置 -->
+    <mappers>
+        <!-- 指明SQL映射文件路径 resource : 包路径 com/.../xxxMapper.xml-->
+        <mapper resource="mappers/UserMapper.xml"/>
+    </mappers>
+</configuration>
